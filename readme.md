@@ -42,7 +42,7 @@ now ```require``` the ```use``` module in the your entry point application.
 let use = require('use');
 ```
 
-Now somewhere in your project if you will need to require some module from namespace path, instead of ``` require('../../../../somepath/thefile')``` use 
+Now somewhere in your project if you will need to require some module from namespace path, instead of ``` require('../../../../somepath/thefile')``` use:
 
 ```
 let use = requre('use');
@@ -50,3 +50,4 @@ let use = requre('use');
 let MyModel = use("App/Models/MyModel");
 
 ```
+it will require module based namespace which you defined in the package.json
