@@ -16,9 +16,17 @@ module.exports = (modulePath) => {
 				let directories = modulePath.split(DIRECTORY_SEPARATOR);
 
 				console.log(directories);
+
+
+
+				// return require()
 			}
+
+			throw Error(`Can't find ${PSR_4} autoloader namespaces.`);
 		}
+
+		throw Error("`namespaces` are missing in your package.json");
 	}
 
-	return require(modulePath);
+	throw Error("Can't find module package.json in the entry directory");
 }
