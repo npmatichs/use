@@ -50,4 +50,4 @@ let use = requre('use');
 let MyModel = use("App/Models/MyModel");
 
 ```
-it will require module based namespace which you defined in the package.json
+it will ```require``` module based namespace which you defined in the package.json
