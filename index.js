@@ -35,7 +35,7 @@ module.exports = (modulePath) => {
                     continue;
                 }
 
-                // let psrModulePath = modulePath.replace(, autoloaded[PSR_4][registered]);
+                let psrModulePath = modulePath.replace(registered, autoloaded[PSR_4][registered]);
 
                 // buggy.
                 return require.main.require(psrModulePath);
