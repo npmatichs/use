@@ -1,6 +1,4 @@
-const NAMEPSACES = 'namespaces';
 const PSR_4 = 'psr-4';
-const DIRECTORY_SEPARATOR = '\\';
 
 let autoloaded = {};
 
@@ -9,7 +7,7 @@ module.exports = (modulePath) => {
     if(typeof modulePath == 'object')
     {
         autoloaded = modulePath;
-    } 
+    }
         else if (typeof modulePath == 'string')
     {
         // console.log(autoloaders);
@@ -44,4 +42,6 @@ module.exports = (modulePath) => {
 
         throw Error(`Can't find autoloaders doesn't exists.`);
     }
+
+    return void 0;
 }
