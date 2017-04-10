@@ -43,5 +43,5 @@ module.exports = (modulePath) => {
         throw Error(`Can't find autoloaders doesn't exists.`);
     }
 
-    return void 0;
+    return undefined;
 }
