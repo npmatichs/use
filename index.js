@@ -1,32 +1,47 @@
-let autoloaders = {};
 const NAMEPSACES = 'namespaces';
 const PSR_4 = 'psr-4';
 const DIRECTORY_SEPARATOR = '\\';
 
+let autoloaded = {};
+
 module.exports = (modulePath) => {
 
-	if(typeof modulePath == 'object')
-	{
-		autoloaders = modulePath;
-	} 
-		else if (typeof modulePath == 'string')
-	{		
-		if(autoloaders[NAMEPSACES])
-		{
-			if(autoloaders[NAMEPSACES][PSR_4])
-			{
-				let directories = modulePath.split(DIRECTORY_SEPARATOR);
+    if(typeof modulePath == 'object')
+    {
+        autoloaded = modulePath;
+    } 
+        else if (typeof modulePath == 'string')
+    {
+        // console.log(autoloaders);
 
-				console.log(directories);
+        if(autoloaded[PSR_4])
+        {
+            // split for any slash.
+            let directories = modulePath.split(/[\/\\]/g);
 
-				
+            let namespace = directories[0];
 
-				// return require()
-			}
+            // todo: imaginate, this operation will execute every time on 'use' require. rework it !
+            let registeredNamespaces = Object.keys(autoloaded[PSR_4]);
 
-			throw Error(`Can't find ${PSR_4} autoloader namespaces.`);
-		}
+            let regularForNamespace = new RegExp(namespace, "g")
 
-		throw Error("`namespaces` are missing in your package.json");
-	}
+            for(let i = 0, _count = registeredNamespaces.length; i < _count; i++)
+            {
+                let registered = registeredNamespaces[i];
+
+                if(! regularForNamespace.test(registered))
+                {
+                    continue;
+                }
+
+                // let psrModulePath = modulePath.replace(, autoloaded[PSR_4][registered]);
+
+                // buggy.
+                return require.main.require(psrModulePath);
+            }
+        }
+
+        throw Error(`Can't find autoloaders doesn't exists.`);
+    }
 }

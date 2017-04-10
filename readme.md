@@ -20,27 +20,16 @@ npm install git+http://github.com/npmatichs/use.git --save
 
 # How to use
 
-Register to your main ```package.json``` namespaces, how it shows in example below:
+Register all your namespaces in your entry application script (index.js):
 ```
-// package.json
-{
-  "namespaces" : {
-  	"psr-4" : {
-  		"\\App\\" : "app\\",
-  		// as example ..
-  		"\\App\\Models\\" : "app\\modelspath\\"
-  	}
-  }
-}
+// first require('use')
+let use = require('use')({
+    "psr-4" : {
+        'App\\' : 'app\\'
+    }
+});
 
 ``` 
-
-now ```require``` the ```use``` module in the your entry point application.
-```
-// index.js
-
-let use = require('use');
-```
 
 Now somewhere in your project if you will need to require some module from namespace path, instead of ``` require('../../../../somepath/thefile')``` use:
 
@@ -50,4 +39,4 @@ let use = requre('use');
 let MyModel = use("App/Models/MyModel");
 
 ```
-it will ```require``` module based namespace which you defined in the package.json
+it will ```require``` module based namespace which you registered at entry point js.
