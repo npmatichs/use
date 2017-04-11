@@ -22,12 +22,23 @@ npm install git+http://github.com/npmatichs/use.git --save
 
 Register all your namespaces in your entry application script (index.js):
 ```
-// first require('use')
-let use = require('use')({
-    "psr-4" : {
-        'App\\' : 'app\\'
-    }
-});
+// package.json
+{
+	"namespaces" : 
+	{
+	    "psr-4" : {
+	      	"Services\\" : "app\\services"
+	    }
+  	},
+}
+
+// !Obligatorily first require('use') must be from your rot entry point to init base path !!!
+
+let use = require('use');
+let packagejson = require('./package');
+
+// Init namespaces and base path. You can create your config path if you don't want to put namesapces in package.json.
+use(packagejson['namespaces'], __dirname);
 
 ``` 
 

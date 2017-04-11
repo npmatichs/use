@@ -1,18 +1,25 @@
 const PSR_4 = 'psr-4';
+const BASE_PATH = 'base_path';
+const NAMESPACES = 'namespaces';
+const DIRECTORY_SEPARATOR = "\\";
 
 let autoloaded = {};
 
-module.exports = (modulePath) => {
+module.exports = (modulePath, basePath = null) => {
+
+    // Set base path only first time for require.
+    if(!autoloaded[BASE_PATH] && basePath)
+    {
+        autoloaded[BASE_PATH] = basePath;
+    }
 
     if(typeof modulePath == 'object')
     {
-        autoloaded = modulePath;
+        autoloaded[NAMESPACES] = modulePath;
     }
         else if (typeof modulePath == 'string')
     {
-        // console.log(autoloaders);
-
-        if(autoloaded[PSR_4])
+        if(autoloaded[NAMESPACES][PSR_4])
         {
             // split for any slash.
             let directories = modulePath.split(/[\/\\]/g);
@@ -20,23 +27,20 @@ module.exports = (modulePath) => {
             let namespace = directories[0];
 
             // todo: imaginate, this operation will execute every time on 'use' require. rework it !
-            let registeredNamespaces = Object.keys(autoloaded[PSR_4]);
+            let namespaces = Object.keys(autoloaded[NAMESPACES][PSR_4]);
 
-            let regularForNamespace = new RegExp(namespace, "g")
-
-            for(let i = 0, _count = registeredNamespaces.length; i < _count; i++)
+            for(let i = 0, _count = namespaces.length; i < _count; i++)
             {
-                let registered = registeredNamespaces[i];
+                let registered = namespaces[i];
 
-                if(! regularForNamespace.test(registered))
+                if(! (new RegExp(namespace, "g")).test(registered))
                 {
                     continue;
                 }
 
-                let psrModulePath = modulePath.replace(registered, autoloaded[PSR_4][registered]);
+                let path = modulePath.replace(registered.replace(/[\/\\]/g, ''), autoloaded[NAMESPACES][PSR_4][registered]);
 
-                // buggy.
-                return require.main.require(psrModulePath);
+                return require(autoloaded[BASE_PATH] + DIRECTORY_SEPARATOR + path);
             }
         }
 
