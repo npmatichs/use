@@ -32,7 +32,7 @@ Register all your namespaces in your entry application script (index.js):
   	},
 }
 
-// !Obligatorily first require('use') must be from your rot entry point to init base path !!!
+// !Obligatorily first require('use') must be from your root entry point to init base path !!!
 
 // index.js
 let use = require('use');
@@ -48,7 +48,9 @@ Now somewhere in your project if you will need to require some module from names
 ```
 let use = requre('use');
 
-let MyModel = use("App/Models/MyModel");
+let MyService = use("Service/myService");
+// same
+let MyService = use("Service\myService");
 
 ```
 it will ```require``` module based namespace which you registered at entry point js.
