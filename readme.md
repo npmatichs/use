@@ -34,6 +34,7 @@ Register all your namespaces in your entry application script (index.js):
 
 // !Obligatorily first require('use') must be from your rot entry point to init base path !!!
 
+// index.js
 let use = require('use');
 let packagejson = require('./package');
 
