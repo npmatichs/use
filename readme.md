@@ -35,11 +35,12 @@ Register all your namespaces in your entry application script (index.js):
 // !Obligatorily first require('use') must be from your root entry point to init base path !!!
 
 // index.js
-let use = require('use');
+let autoloader = require('use/autoloader');
 let packagejson = require('./package');
 
 // Init namespaces and base path. You can create your config path if you don't want to put namesapces in package.json.
-use(packagejson['namespaces'], __dirname);
+autoloader.setBasePath(__dirname);
+autoloader.setNamespaces(packagejson['namespaces']);
 
 ``` 
 
