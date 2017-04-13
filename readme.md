@@ -49,9 +49,9 @@ Now somewhere in your project if you will need to require some module from names
 ```
 let use = requre('use');
 
-let MyService = use("Service/myService");
+let MyService = use("Services/myService");
 // same
-let MyService = use("Service\myService");
+let MyService = use("Services\myService");
 
 ```
 it will ```require``` module based namespace which you registered at entry point js.
