@@ -1,5 +1,6 @@
 const BASE_PATH = 'base_path';
 const NAMESPACES = 'namespaces';
+const PSR_4 = 'psr-4';
 
 let autoloaded = {}
 let indexedNamespaces = {};
@@ -23,9 +24,10 @@ exports.setBasePath = (dirname) => {
 exports.setNamespaces = (namespaces) => {
 	autoloaded[NAMESPACES] = namespaces;
 
+	// index PSR-4 namespaces
 	if(typeof namespaces == 'object')
 	{
-		let _keys = Object.keys(namespaces);
+		let _keys = Object.keys(namespaces[PSR_4]);
 
 		for(let i = 0, _count = _keys.length; i < _count; i++)
 		{
