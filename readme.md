@@ -9,13 +9,13 @@ At momment support only psr-4 namespaces. Learn more about [psr-4](http://www.ph
 
 SSH: 
 ``` 
-npm install git+ssh://git@github.com:npmatichs/use.git --save
+npm install git+ssh://git@github.com:npmatichs/use.git#2.2 --save
 ```
 
 HTTP:
 
 ```
-npm install git+http://github.com/npmatichs/use.git --save
+npm install git+http://github.com/npmatichs/use.git#2.2 --save
 ```
 
 # How to use
