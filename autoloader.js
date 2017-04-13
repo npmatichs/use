@@ -2,12 +2,13 @@ const BASE_PATH = 'base_path';
 const NAMESPACES = 'namespaces';
 
 let autoloaded = {}
+let indexedNamespaces = {};
 
 /**
  * Setter base path of application.
  *
  * @param {String} dirname
- * @return {undefined}
+ * @exports {Function}
  */
 exports.setBasePath = (dirname) => {
 	autoloaded[BASE_PATH] = dirname;
@@ -17,16 +18,26 @@ exports.setBasePath = (dirname) => {
  * Setter namespaces of application.
  *
  * @param {Object} namespaces
- * @return {undefined}
+ * @exports {Fucntion}
  */
 exports.setNamespaces = (namespaces) => {
 	autoloaded[NAMESPACES] = namespaces;
+
+	if(typeof namespaces == 'object')
+	{
+		let _keys = Object.keys(namespaces);
+
+		for(let i = 0, _count = _keys.length; i < _count; i++)
+		{
+			indexedNamespaces[module.exports.simplifyNamespace(_keys[i])] = _keys[i];
+		}
+	}
 }
 
 /**
  * Get autoloaded namespace.
  *
- * @return {Object}
+ * @exports {Function}
  */
 exports.getAutoloaded = () => {
 	return autoloaded;
@@ -35,17 +46,41 @@ exports.getAutoloaded = () => {
 /**
  * Get base path of application
  *
- * @return {String}
+ * @exports {Function}
  */
 exports.getBasePath = () => {
 	return autoloaded[BASE_PATH];
 }
 
 /**
- * Get autoloaded namepsaces.
+ * Get autoloaded namespaces.
  *
- * @return {Object}
+ * @exports {Function}
  */
-exports.getNamesapces = () => {
+exports.getNamespaces = () => {
 	return autoloaded[NAMESPACES];
+}
+
+/**
+ * Get indexed namespaces.
+ *
+ * @exports {Function}
+ */
+exports.getIndexedNamespaces = () => {
+	return indexedNamespaces;
+}
+
+/**
+ * Get indexed namespaces.
+ *
+ * @param {String} namespace Namespace name.
+ * @exports {Function|Error}
+ */
+exports.simplifyNamespace = (namespace) => {
+	if(namespace)
+	{
+		return namespace.replace(/[\/\\]/g, '').toLowerCase();
+	}
+
+	throw Error(`Invalid namespace ${namespace}`);
 }
